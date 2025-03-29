@@ -1,7 +1,7 @@
 package com.belnitskii.birthdayreminderbot;
 
 import com.belnitskii.birthdayreminderbot.config.BotConfig;
-import lombok.AllArgsConstructor;
+import com.belnitskii.birthdayreminderbot.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -11,19 +11,21 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
-@AllArgsConstructor
 public class TelegramBot extends TelegramLongPollingBot {
     private static final Logger logger = LoggerFactory.getLogger(TelegramBot.class);
     private final BotConfig botConfig;
+    private final PersonService personService;
+
 
     @Override
     public String getBotUsername() {
         return botConfig.getBotName();
     }
 
-    @Override
-    public String getBotToken() {
-        return botConfig.getToken();
+    public TelegramBot(BotConfig botConfig, PersonService personService) {
+        super(botConfig.getToken());
+        this.botConfig = botConfig;
+        this.personService = personService;
     }
 
     @Override
@@ -38,6 +40,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
                 case "/help":
                     sendMessage(chatId,"Доступные команды:\n/start - Запуск бота\n/help - Список команд");
+                    break;
+                case "/get":
+                    sendMessage(chatId, personService.getPerson(1L).toString());;
                     break;
                 default:
                     sendMessage(chatId,"Извините, я не понимаю эту команду. Попробуйте /help.");

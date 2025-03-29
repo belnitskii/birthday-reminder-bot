@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+</head>
+<body>
+<h1>User list</h1>
+<form action="form">
+    <button>Add new</button>
+</form>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Date</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr th:each="person : ${people}">
+        <td th:text="${person.name}"></td>
+        <td th:text="${person.getAge()}"></td>
+        <td th:text="${person.birthdayDate}"></td>
+        <td>
+            <form th:action="@{/person/edit/{id}(id=${person.id})}" method="get">
+                <input type="submit" value="Edit">
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/person/delete}" method="post">
+                <input type="hidden" name="id" th:value="${person.id}">
+                <input type="submit" value="Delete">
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
