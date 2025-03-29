@@ -7,24 +7,21 @@ th, td {
     padding: 10px;
     text-align: left;
     min-width: 150px;
-    border: 1px solid black;
+    border: 1px solid #ddd; /* Серый цвет границ, мягче */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Чередующиеся строки для лучшей читаемости */
 }
 
 th {
     background-color: #f2f2f2;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-button {
-    padding: 8px 12px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-button:hover {
-    background-color: #45a049;
+th {
+    background-color: #f2f2f2;
 }
 
 /* Стили для формы добавления пользователя */
@@ -34,7 +31,8 @@ button:hover {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 300px;
+    width: 90%;
+    max-width: 400px;
     margin: 20px auto; /* Добавляем автоцентрирование */
 }
 
@@ -57,24 +55,32 @@ label {
 input[type="text"],
 input[type="number"],
 input[type="date"] {
-    padding: 8px;
-    margin-bottom: 15px;
+    box-sizing: border-box;
+    padding: 8px; /* Улучшает удобство ввода */
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
 }
 
+button,
 input[type="submit"] {
+    padding: 10px;
     background-color: #4CAF50;
     color: white;
-    padding: 10px;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
+    border-radius: 4px;
 }
 
+button:hover,
 input[type="submit"]:hover {
     background-color: #45a049;
 }
+
+button:active,
+input[type="submit"]:active {
+    background-color: #3e8e41;
+    transform: scale(0.98);
+}
+
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Person</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Edit Person</h2>
+    <form class="validated-form" th:action="@{/person/update}" method="post">
+        <input type="hidden" name="id" th:value="${person.id}">
+        <label>Name:</label>
+        <input type="text" id="name" name="name" th:value="${person.name}">
+        <span class="error-message" id="nameError" style="color: red;"></span>
+
+        <br>
+        <label>Birthday:</label>
+        <input type="date" id="birthdayDate" name="birthdayDate" th:value="${person.birthdayDate}">
+        <span class="error-message" id="dateError" style="color: red;"></span>
+
+        <br>
+        <input type="submit" value="Save">
+    </form>
+    <br>
+    <form th:action="@{/person/list}" method="get">
+        <input type="submit" value="Back to list">
+    </form>
+</div>
+<script th:src="@{/js/validation.js}"></script>
+</body>
+</html>

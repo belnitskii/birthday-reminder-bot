@@ -28,7 +28,7 @@ public class PersonController {
     public String editPersonFrom(@PathVariable Long id, Model model){
         Person person = personService.getPerson(id);
         model.addAttribute("person", person);
-        return "edit_person";
+        return "person-edit";
     }
 
     @PostMapping("/update")
@@ -48,12 +48,6 @@ public class PersonController {
     public String deletePerson(@RequestParam("id") Long id){
         personService.deletePerson(id);
         return "redirect:/person/list";
-    }
-
-    @GetMapping("/get")
-    public String getPerson(@RequestParam("id") Long id, Model model){
-        model.addAttribute("person", personService.getPerson(id));
-        return "person-details";
     }
 
     @GetMapping("/list")

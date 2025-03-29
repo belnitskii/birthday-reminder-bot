@@ -1,14 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new person</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
 <body>
 <div class="container">
     <h2>Add new person</h2>
-    <form action="/person/save" method="post">
+    <form class="validated-form">
         <label>Name:</label>
-        <input type="text" name="name">
+        <input type="text" id="name" name="name">
+        <span class="error-message" id="nameError" style="color: red;"></span>
+        <br>
 
         <label>Date:</label>
-        <input type="date" name="birthdayDate">
+        <input type="date" id="birthdayDate" name="birthdayDate">
+        <span class="error-message" id="dateError" style="color: red;"></span>
+        <br>
 
         <input type="submit" value="Save">
     </form>
 </div>
+<script th:src="@{/js/validation.js}"></script>
 </body>
+</html>

@@ -19,6 +19,7 @@ public class PersonService {
 
     @Transactional
     public void savePerson(Person person) {
+        validateName(person.getName());
         validateBirthdayDate(person.getBirthdayDate());
         personRepository.save(person);
     }
@@ -35,20 +36,24 @@ public class PersonService {
 
     @Transactional
     public void updatePerson(Person updatedPerson) {
+        validateName(updatedPerson.getName());
         validateBirthdayDate(updatedPerson.getBirthdayDate());
-        Person person = personRepository.findById(updatedPerson.getId()).orElse(null);
-        if (person != null) {
-            person.setName(updatedPerson.getName());
-            person.setBirthdayDate(updatedPerson.getBirthdayDate());
-            personRepository.save(person);
-        }
+        Person person = personRepository.findById(updatedPerson.getId()).orElseThrow(
+                () -> new IllegalArgumentException("Пользователь с таким ID не найден")
+        );
+        person.setName(updatedPerson.getName());
+        person.setBirthdayDate(updatedPerson.getBirthdayDate());
+        personRepository.save(person);
     }
 
     public List<Person> getAll() {
         return personRepository.findAll();
     }
 
-    private void validateBirthdayDate(LocalDate birthdayDate){
+    public void validateBirthdayDate(LocalDate birthdayDate){
+        if (birthdayDate == null){
+            throw new IllegalArgumentException("Вы забыли указать день рождения");
+        }
         if (birthdayDate.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Дата рождения не может быть в будущем!");
         }
@@ -57,4 +62,9 @@ public class PersonService {
         }
     }
 
+    public void validateName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Нельзя сохранять пользователя без имени");
+        }
+    }
 }
