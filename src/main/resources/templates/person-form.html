@@ -8,7 +8,7 @@
 <body>
 <div class="container">
     <h2>Add new person</h2>
-    <form class="validated-form">
+    <form th:action="@{/person/save}" method="post" class="validated-form">
         <label>Name:</label>
         <input type="text" id="name" name="name">
         <span class="error-message" id="nameError" style="color: red;"></span>
