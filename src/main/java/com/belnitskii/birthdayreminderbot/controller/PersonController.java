@@ -25,7 +25,7 @@ public class PersonController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editPersonFrom(@PathVariable Long id, Model model){
+    public String editPersonForm(@PathVariable Long id, Model model){
         Person person = personService.getPerson(id);
         model.addAttribute("person", person);
         return "person-edit";
