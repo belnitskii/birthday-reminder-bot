@@ -38,6 +38,7 @@ jobs:
           echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env
           echo "BIRTHDAY_BOT_NAME=$BIRTHDAY_BOT_NAME" >> .env
           echo "BIRTHDAY_BOT_TOKEN=$BIRTHDAY_BOT_TOKEN" >> .env
+          echo "SERVER_USER=$SERVER_USER" >> .env
 
           scp -i ~/.ssh/id_rsa .env $SERVER_USER@$SERVER_HOST:/home/$SERVER_USER/birthday-reminder-bot/.env
           ssh -i ~/.ssh/id_rsa $SERVER_USER@$SERVER_HOST << 'EOF'
