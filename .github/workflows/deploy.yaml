@@ -39,13 +39,13 @@ jobs:
           echo "BIRTHDAY_BOT_NAME=$BIRTHDAY_BOT_NAME" >> .env
           echo "BIRTHDAY_BOT_TOKEN=$BIRTHDAY_BOT_TOKEN" >> .env
           
-          echo "SERVER_USER=${SERVER_USER}"
-          echo "SERVER_HOST=${SERVER_HOST}"
-          
-          scp -i ~/.ssh/id_rsa .env $SERVER_USER@$SERVER_HOST:/home/$SERVER_USER/birthday-reminder-bot/.env
+          echo "SERVER_USER=${SERVER_USER}" | wc -c
+          echo "SERVER_HOST=${SERVER_HOST}" | wc -c
+  
+          scp -i ~/.ssh/id_rsa .env $SERVER_USER@$SERVER_HOST:/home/belnitskii/birthday-reminder-bot/.env
           ssh -i ~/.ssh/id_rsa $SERVER_USER@$SERVER_HOST << 'EOF'
           
-          cd /home/$SERVER_USER/birthday-reminder-bot
+          cd /home/belnitskii/birthday-reminder-bot
           git fetch origin
           git reset --hard origin/main
           git pull origin main
