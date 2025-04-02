@@ -25,16 +25,24 @@
         <td th:text="${person.birthdayDate}"></td>
         <td>
             <form th:action="@{/person/edit/{id}(id=${person.id})}" method="get">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <input type="submit" value="Edit">
             </form>
         </td>
         <td>
             <form th:action="@{/person/delete}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <input type="hidden" name="id" th:value="${person.id}">
                 <input type="submit" value="Delete">
             </form>
         </td>
     </tr>
 </table>
+
+<p th:if="${#authorization.expression('isAuthenticated()')}">
+    Вы вошли как <span th:text="${#authentication.name}"></span>
+    <a href="/logout">Выйти</a>
+</p>
+
 </body>
 </html>
