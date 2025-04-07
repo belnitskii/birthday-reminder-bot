@@ -25,6 +25,10 @@ public class Person {
     @Column(nullable = false)
     private LocalDate birthdayDate;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User owner;
+
     public int getAge() {
         return Period.between(birthdayDate, LocalDate.now()).getYears();
     }

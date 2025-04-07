@@ -7,11 +7,12 @@
 </head>
 <body>
 <h1>User list</h1>
-<form action="form">
+<form action="admin-form">
     <button>Add new</button>
 </form>
 <table border="1">
     <tr>
+        <th>User</th>
         <th>Name</th>
         <th>Age</th>
         <th>Date</th>
@@ -19,18 +20,19 @@
         <th></th>
     </tr>
     <tr th:each="person : ${people}">
+        <td th:text="${person.owner.username}"></td>
         <td th:text="${person.name}"></td>
         <td th:text="${person.getAge()}"></td>
         <td th:text="${person.birthdayDate}"></td>
         <td>
-            <form th:action="@{/person/edit/{id}(id=${person.id})}" method="get">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <form th:action="@{/admin/edit/{id}(id=${person.id})}" method="get">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <input type="submit" value="Edit">
             </form>
         </td>
         <td>
-            <form th:action="@{/person/delete}" method="post">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <form th:action="@{/admin/delete}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <input type="hidden" name="id" th:value="${person.id}">
                 <input type="submit" value="Delete">
             </form>
@@ -42,4 +44,3 @@
     <button type="submit">Logout</button>
 </form>
 </body>
-</html>

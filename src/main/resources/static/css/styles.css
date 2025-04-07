@@ -1,3 +1,64 @@
+/* ========== Custom Dropdown (без влияния на остальное) ========== */
+.custom-select-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.custom-select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.selected-option {
+    padding: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.options-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: #fff;
+    border-radius: 0 0 4px 4px;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+
+.options-list li {
+    padding: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.options-list li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Подсветка ролей */
+.admin-option {
+    background-color: #ffecec;
+    color: #b10000;
+    font-weight: bold;
+}
+
+.user-option {
+    background-color: #e6ffed;
+    color: #007a00;
+}
+
+
 table {
     width: 100%;
     border-collapse: collapse;

@@ -1,11 +1,11 @@
 package com.belnitskii.birthdayreminderbot;
 
+import com.belnitskii.birthdayreminderbot.model.Role;
 import com.belnitskii.birthdayreminderbot.model.User;
 import com.belnitskii.birthdayreminderbot.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import java.util.Set;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -21,11 +21,13 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (userRepository.count() == 0) {
+
             User admin = new User();
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("admin123"));
-            admin.setRoles(Set.of("ADMIN"));
+            admin.setRole(Role.ADMIN.name());
             userRepository.save(admin);
         }
+
     }
 }

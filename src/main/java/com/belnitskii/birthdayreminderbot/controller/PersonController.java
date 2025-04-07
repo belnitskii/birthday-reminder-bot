@@ -52,7 +52,7 @@ public class PersonController {
 
     @GetMapping("/list")
     public String showPersonList(Model model) {
-        model.addAttribute("people", personService.getAll());
+        model.addAttribute("people", personService.getPersonsByCurrentUser());
         return "person-list";
     }
 }
