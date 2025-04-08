@@ -22,8 +22,15 @@ public class User {
 
     private String role = Role.USER.name();
 
+    @Column(unique = true)
+    private Long telegramId;
+
+
     public boolean isAdmin() {
         return getRole().equals(Role.ADMIN.name());
+    }
 
+    public boolean isTelegramRegistered(){
+        return getTelegramId() != null;
     }
 }

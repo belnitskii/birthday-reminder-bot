@@ -33,6 +33,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/register").anonymous()
+                        .requestMatchers("/account").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/person/**").authenticated()
                         .requestMatchers("/api/**").permitAll()

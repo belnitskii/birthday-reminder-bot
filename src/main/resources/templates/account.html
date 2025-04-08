@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Personal Account</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+</head>
+<body>
+<table border = 1>
+    <tr>
+        <td>Username</td>
+        <td>Role</td>
+        <td>Registered Telegram</td>
+    </tr>
+    <tr>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.isTelegramRegistered()}"></td>
+    </tr>
+</table>
+<form th:action="@{/auth/telegram/token}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <button type="submit">Generate token</button>
+</form>
+
+<br>
+
+
+<form th:action="@{/auth/telegram/remove}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <button type="submit">Remove telegram registered</button>
+</form>
+
+<br>
+
+<form th:action="@{/logout}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <button type="submit">Logout</button>
+</form>
+</body>
+</html>
