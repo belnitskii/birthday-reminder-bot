@@ -10,14 +10,14 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
 
     Optional<User> findByTelegramId(Long telegramId);
 
     @Transactional
     @Modifying
-    @Query("UPDATE User u SET u.telegramId = null WHERE u.username = :username")
-    void removeTelegramIdByUsername(@Param("username") String userName);
+    @Query("UPDATE User u SET u.telegramId = null WHERE u.email = :email")
+    void removeTelegramIdByEmail(@Param("email") String email);
 
     @Transactional
     @Modifying

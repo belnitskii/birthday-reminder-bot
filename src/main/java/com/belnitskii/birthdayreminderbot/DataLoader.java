@@ -21,13 +21,13 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (userRepository.count() == 0) {
-
             User admin = new User();
             admin.setUsername("admin");
+            admin.setEmail("admin@mail.ru");
             admin.setPassword(passwordEncoder.encode("admin123"));
             admin.setRole(Role.ADMIN.name());
+            admin.setEnabled(true);
             userRepository.save(admin);
         }
-
     }
 }

@@ -14,8 +14,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String username;
+
+    @Column(unique = true, nullable = false)
+    private String email;
 
     @Column(nullable = false)
     private String password;
@@ -25,6 +28,7 @@ public class User {
     @Column(unique = true)
     private Long telegramId;
 
+    private boolean enabled = false;
 
     public boolean isAdmin() {
         return getRole().equals(Role.ADMIN.name());

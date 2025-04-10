@@ -40,8 +40,6 @@ public class PersonService {
         personRepository.save(person);
     }
 
-
-
     public Person getPerson(Long id) {
         return personRepository.findById(id).orElse(null);
     }
@@ -114,11 +112,10 @@ public class PersonService {
         return personRepository.findByOwner(user);
     }
 
-
     private User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails userDetails) {
-            return userRepository.findByUsername(userDetails.getUsername())
+            return userRepository.findByEmail(userDetails.getUsername())
                     .orElseThrow(() -> new RuntimeException("User not found"));
         }
         throw new RuntimeException("No authenticated user found");

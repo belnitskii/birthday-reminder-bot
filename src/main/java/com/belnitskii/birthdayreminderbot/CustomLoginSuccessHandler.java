@@ -24,6 +24,5 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
             redirectUrl = "/person/list";
         }
         response.sendRedirect(redirectUrl);
-
     }
 }

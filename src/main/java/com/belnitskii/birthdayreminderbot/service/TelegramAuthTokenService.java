@@ -21,11 +21,9 @@ public class TelegramAuthTokenService {
         this.userRepository = userRepository;
     }
 
-    public String generateTokenForUser(String userName) {
-        User user = userRepository.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
-
+    public String generateTokenForUser(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
         tokenRepository.removeByUser(user);
-
         TelegramAuthToken authToken = new TelegramAuthToken();
         authToken.setUser(user);
         authToken.setToken(UUID.randomUUID().toString());
@@ -34,10 +32,10 @@ public class TelegramAuthTokenService {
         return authToken.getToken();
     }
 
-    public void removeToken(String userName) {
-        User user = userRepository.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
+    public void removeTokenForUser(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
         tokenRepository.removeByUser(user);
-        userRepository.removeTelegramIdByUsername(user.getUsername());
+        userRepository.removeTelegramIdByEmail(user.getEmail());
     }
 
     public Optional<User> connectTelegram(String token, Long telegramId) {
