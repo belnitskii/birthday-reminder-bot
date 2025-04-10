@@ -1,6 +1,6 @@
 -- 1. Create table email_auth_token
 CREATE TABLE email_auth_token (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     token VARCHAR(255) NOT NULL UNIQUE,
     user_id BIGINT NOT NULL UNIQUE,
     created_at TIMESTAMP NOT NULL,
