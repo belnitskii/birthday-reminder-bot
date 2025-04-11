@@ -1,15 +1,10 @@
 package com.belnitskii.birthdayreminderbot.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
 import java.time.Period;
-
 
 @Getter
 @Setter
@@ -28,6 +23,10 @@ public class Person {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User owner;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "VARCHAR(10) DEFAULT 'LOW'")
+    private ReminderLevel reminderLevel = ReminderLevel.LOW;
 
     public int getAge() {
         return Period.between(birthdayDate, LocalDate.now()).getYears();

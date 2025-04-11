@@ -3,11 +3,13 @@ package com.belnitskii.birthdayreminderbot;
 import com.belnitskii.birthdayreminderbot.config.BotConfig;
 import com.belnitskii.birthdayreminderbot.model.Person;
 import com.belnitskii.birthdayreminderbot.model.User;
+import com.belnitskii.birthdayreminderbot.service.NotificationService;
 import com.belnitskii.birthdayreminderbot.service.PersonService;
 import com.belnitskii.birthdayreminderbot.service.TelegramAuthTokenService;
 import com.belnitskii.birthdayreminderbot.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -24,18 +26,20 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final PersonService personService;
     private final UserService userService;
     private final TelegramAuthTokenService authTokenService;
+    private final NotificationService notificationService;
 
     @Override
     public String getBotUsername() {
         return botConfig.getBotName();
     }
 
-    public TelegramBot(BotConfig botConfig, PersonService personService, UserService userService, TelegramAuthTokenService authTokenService) {
+    public TelegramBot(BotConfig botConfig, PersonService personService, UserService userService, TelegramAuthTokenService authTokenService, NotificationService notificationService) {
         super(botConfig.getToken());
         this.botConfig = botConfig;
         this.personService = personService;
         this.userService = userService;
         this.authTokenService = authTokenService;
+        this.notificationService = notificationService;
     }
 
     @Override
@@ -107,6 +111,20 @@ public class TelegramBot extends TelegramLongPollingBot {
             execute(message);
         } catch (TelegramApiException e) {
             logger.error("Ошибка при отправке сообщения: {}", e.getMessage());
+        }
+    }
+
+    @Scheduled(cron = "0 0 9 * * *")
+    private void sendDailyMessage() {
+        for (SendMessage sendMessage : notificationService.getDailyNotification()) {
+            try {
+                execute(sendMessage);
+                Thread.sleep(1000);
+            } catch (TelegramApiException e) {
+                logger.error("Ошибка при отправке сообщения: {}", e.getMessage());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
