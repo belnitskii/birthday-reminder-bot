@@ -23,6 +23,18 @@
         <span class="error-message" id="dateError" style="color: red;"></span>
 
         <br>
+        <label>Reminder Level:</label>
+        <select id="reminderLevel" name="reminderLevel" required>
+            <option value="">-- Select Level --</option>
+            <option th:each="level : ${allReminderLevels}"
+                    th:value="${level.name()}"
+                    th:text="${level.description}"
+                    th:selected="${person.reminderLevel == level}">
+            </option>
+        </select>
+        <span class="error-message" id="reminderError" style="color: red;"></span>
+
+        <br>
         <input type="submit" value="Save">
     </form>
     <br>

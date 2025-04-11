@@ -1,6 +1,7 @@
 package com.belnitskii.birthdayreminderbot.controller;
 
 import com.belnitskii.birthdayreminderbot.model.Person;
+import com.belnitskii.birthdayreminderbot.model.ReminderLevel;
 import com.belnitskii.birthdayreminderbot.model.User;
 import com.belnitskii.birthdayreminderbot.service.PersonService;
 import com.belnitskii.birthdayreminderbot.service.UserService;
@@ -43,6 +44,7 @@ public class AdminController {
         List<User> users = userService.findAll();
         model.addAttribute("person", person);
         model.addAttribute("users", users);
+        model.addAttribute("allReminderLevels", ReminderLevel.values());
         return "admin-edit";
     }
 

@@ -18,6 +18,7 @@
         <th>Name</th>
         <th>Age</th>
         <th>Date</th>
+        <th>Reminder Level</th>
         <th></th>
         <th></th>
     </tr>
@@ -25,6 +26,7 @@
         <td th:text="${person.name}"></td>
         <td th:text="${person.getAge()}"></td>
         <td th:text="${person.birthdayDate}"></td>
+        <td th:text="${person.reminderLevel}"></td>
         <td>
             <form th:action="@{/person/edit/{id}(id=${person.id})}" method="get">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />

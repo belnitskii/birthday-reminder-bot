@@ -1,6 +1,7 @@
 package com.belnitskii.birthdayreminderbot.controller;
 
 import com.belnitskii.birthdayreminderbot.model.Person;
+import com.belnitskii.birthdayreminderbot.model.ReminderLevel;
 import com.belnitskii.birthdayreminderbot.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,7 @@ public class PersonController {
     public String editPersonForm(@PathVariable Long id, Model model){
         Person person = personService.getPerson(id);
         model.addAttribute("person", person);
+        model.addAttribute("allReminderLevels", ReminderLevel.values());
         return "person-edit";
     }
 

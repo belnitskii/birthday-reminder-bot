@@ -62,6 +62,7 @@ public class PersonService {
         );
         person.setName(updatedPerson.getName());
         person.setBirthdayDate(updatedPerson.getBirthdayDate());
+        person.setReminderLevel(updatedPerson.getReminderLevel());
         personRepository.save(person);
     }
 
@@ -74,6 +75,7 @@ public class PersonService {
         );
         person.setName(updatedPerson.getName());
         person.setBirthdayDate(updatedPerson.getBirthdayDate());
+        person.setReminderLevel(updatedPerson.getReminderLevel());
         person.setOwner(updatedPerson.getOwner());
         personRepository.save(person);
     }
