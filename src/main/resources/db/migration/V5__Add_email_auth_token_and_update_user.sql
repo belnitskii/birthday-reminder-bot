@@ -1,3 +1,4 @@
+START TRANSACTION;
 -- 1. Create table email_auth_token
 CREATE TABLE email_auth_token (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -25,3 +26,4 @@ ALTER TABLE users ADD COLUMN enabled BOOLEAN NOT NULL DEFAULT FALSE;
 
 -- 6. Drop uniqueness constraint from 'username' column (if it exists and needs to be removed)
 ALTER TABLE users DROP INDEX UKr43af9ap4edm43mmtq01oddj6;
+COMMIT;
