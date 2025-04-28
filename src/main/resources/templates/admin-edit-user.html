@@ -27,10 +27,15 @@
         <span class="error-message" id="passwordError" style="color: red;"></span>
         <br>
 
+
         <label>Role:</label>
-        <input type="text" id="role" name="role" th:value="${user.role}">
-        <span class="error-message" id="roleError" style="color: red;"></span>
-        <br>
+        <select id="role" name="role" required>
+            <option value="">-- Select Role --</option>
+            <option th:each="role : ${roles}"
+                    th:value="${role.name}"
+                    th:text="${role.name}">
+            </option>
+        </select>
 
         <br>
         <input type="submit" value="Save">
