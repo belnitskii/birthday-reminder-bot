@@ -68,8 +68,7 @@ public class AuthController {
 
     @PostMapping("/auth/telegram/remove")
     public String removeTelegramToken(Principal principal){
-        String email = principal.getName();
-        authTokenService.removeTokenForUser(email);
+        authTokenService.removeTokenForUser(principal.getName());
         return "redirect:/account";
     }
 
@@ -78,7 +77,7 @@ public class AuthController {
         EmailAuthToken authToken = emailAuthTokenService.findByToken(token).orElseThrow(() -> new RuntimeException("Invalid token"));
         User user = authToken.getUser();
         user.setEnabled(true);
-        userService.update(user);
+        userService.saveUser(user);
         emailAuthTokenService.remove(authToken.getToken());
         return "redirect:/login?verified";
     }

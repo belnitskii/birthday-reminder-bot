@@ -4,6 +4,7 @@ import com.belnitskii.birthdayreminderbot.model.TelegramAuthToken;
 import com.belnitskii.birthdayreminderbot.model.User;
 import com.belnitskii.birthdayreminderbot.repository.TelegramAuthTokenRepository;
 import com.belnitskii.birthdayreminderbot.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ public class TelegramAuthTokenService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public String generateTokenForUser(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
         tokenRepository.removeByUser(user);
@@ -32,12 +34,14 @@ public class TelegramAuthTokenService {
         return authToken.getToken();
     }
 
+    @Transactional
     public void removeTokenForUser(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
         tokenRepository.removeByUser(user);
         userRepository.removeTelegramIdByEmail(user.getEmail());
     }
 
+    @Transactional
     public Optional<User> connectTelegram(String token, Long telegramId) {
         if (userRepository.findByTelegramId(telegramId).isPresent()) {
             userRepository.removeTelegramIdByTelegramId(telegramId);

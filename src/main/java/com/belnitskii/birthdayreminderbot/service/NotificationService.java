@@ -23,7 +23,7 @@ public class NotificationService {
 
     public List<SendMessage> getDailyNotification() {
         List<SendMessage> sendMessageList = new ArrayList<>();
-        List<User> userList = userService.findAll();
+        List<User> userList = userService.findAllByAdmin();
         for (User user : userList) {
             Long id = user.getTelegramId();
             if (id != null){

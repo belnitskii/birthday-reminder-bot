@@ -19,7 +19,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         String redirectUrl = "/person/list";
 
         if (authorities.stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"))){
-            redirectUrl = "admin/list";
+            redirectUrl = "admin/list-users";
         } else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
             redirectUrl = "/person/list";
         }

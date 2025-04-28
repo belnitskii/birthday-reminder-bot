@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New User (Admin)</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Add new user (Admin)</h2>
+    <form th:action="@{/admin/save-user}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+        <label>Name:</label>
+        <input type="text" id="name" name="name">
+        <span class="error-message" id="nameError" style="color: red;"></span>
+        <br>
+
+        <label>Email:</label>
+        <input type="email" id="email" name="email">
+        <span class="error-message" id="emailError" style="color: red;"></span>
+        <br>
+
+        <label>Password:</label>
+        <input type="password" id="password" name="password">
+        <span class="error-message" id="passwordError" style="color: red;"></span>
+        <br>
+
+        <label>Role:</label>
+        <select id="role" name="role" required>
+            <option value="">-- Select Role --</option>
+            <option th:each="role : ${roles}"
+                    th:value="${role.name}"
+                    th:text="${role.name}">
+            </option>
+        </select>
+        <span class="error-message" id="roleError" style="color: red;"></span>
+        <br>
+
+        <br><br>
+
+        <input type="submit" value="Save">
+    </form>
+
+    <br>
+    <form th:action="@{/admin/list-users}" method="get">
+        <input type="submit" value="Back to user-list">
+    </form>
+</div>
+<script th:src="@{/js/validation.js}"></script>
+<script th:src="@{/js/dropdown.js}"></script>
+</body>
+</html>

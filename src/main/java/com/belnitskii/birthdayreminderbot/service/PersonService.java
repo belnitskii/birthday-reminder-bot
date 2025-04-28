@@ -80,9 +80,8 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    public List<Person> getAll() {
-        User user = getCurrentUser();
-        if (user.isAdmin()){
+    public List<Person> getAllByAdmin() {
+        if (getCurrentUser().isAdmin()){
             return personRepository.findAll();
         } else {
             throw new ForbiddenException();

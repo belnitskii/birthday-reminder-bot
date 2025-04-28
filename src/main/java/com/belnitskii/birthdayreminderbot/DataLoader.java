@@ -24,10 +24,19 @@ public class DataLoader implements CommandLineRunner {
             User admin = new User();
             admin.setUsername("admin");
             admin.setEmail("admin@mail.ru");
-            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.setPassword(passwordEncoder.encode("admin"));
             admin.setRole(Role.ADMIN.name());
             admin.setEnabled(true);
             userRepository.save(admin);
+        }
+        if(userRepository.findByEmail("user@mail.ru").isEmpty()){
+            User user = new User();
+            user.setUsername("user");
+            user.setEmail("user@mail.ru");
+            user.setPassword(passwordEncoder.encode("user"));
+            user.setRole(Role.USER.name());
+            user.setEnabled(true);
+            userRepository.save(user);
         }
     }
 }
