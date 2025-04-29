@@ -29,13 +29,13 @@ public class AdminController {
     @GetMapping("/list-persons")
     public String getAll(Model model) {
         model.addAttribute("people", personService.getAllByAdmin());
-        return "admin-list-persons";
+        return "admin/admin-list-persons";
     }
 
     @GetMapping("/list-users")
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.findAllByAdmin());
-        return "admin-list-users";
+        return "admin/admin-list-users";
     }
 
 
@@ -58,14 +58,14 @@ public class AdminController {
         model.addAttribute("person", person);
         model.addAttribute("users", users);
         model.addAttribute("allReminderLevels", ReminderLevel.values());
-        return "admin-edit";
+        return "admin/admin-edit";
     }
 
     @GetMapping("/edit-user/{id}")
     public String editUserForm(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.findById(id));
         model.addAttribute("roles", Role.values());
-        return "admin-edit-user";
+        return "admin/admin-edit-user";
     }
 
     @PostMapping("/update")
@@ -112,13 +112,13 @@ public class AdminController {
         model.addAttribute("users", userService.findAllByAdmin());
         model.addAttribute("person", new Person());
         model.addAttribute("allReminderLevels", ReminderLevel.values());
-        return "admin-form";
+        return "admin/admin-form";
     }
 
     @GetMapping("/admin-form-user")
     public String showAdminFormUser(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("roles", Role.values());
-        return "admin-form-user";
+        return "admin/admin-form-user";
     }
 }

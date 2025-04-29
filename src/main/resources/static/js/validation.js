@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function() {
         form.addEventListener('submit', async function(event) {
             event.preventDefault();
 
-            // Очистка ошибок
             form.querySelectorAll('.error-message').forEach(el => {
                 el.textContent = '';
             });
@@ -29,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     const errors = await response.json();
                     console.log('Errors from server:', errors); // Логируем ошибки для отладки
 
-                    // Обрабатываем ошибки
                     if (errors.nameError) {
                         document.getElementById('nameError').textContent = errors.nameError;
                     }
@@ -37,11 +35,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         document.getElementById('dateError').textContent = errors.dateError;
                     }
                 } else {
-                    // Если ошибок нет, отправляем оригинальную форму
                     form.submit();
                 }
             } catch (error) {
-                console.error('Ошибка валидации:', error);
+                console.error('Validation error:', error);
             }
         });
     });

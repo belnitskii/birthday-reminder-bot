@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Edit Person</title>
@@ -11,27 +11,27 @@
 <header th:replace="fragments/header :: header"></header>
 
 <main class="container py-5 flex-grow-1">
+
     <div class="card shadow-sm border-0 mx-auto" style="max-width: 600px;">
         <div class="card-body">
             <h2 class="card-title text-center text-primary mb-4">Edit Person</h2>
-
-            <form class="validated-form" th:action="@{/person/update}" method="post" novalidate>
+            <form th:action="@{/admin/update}" method="post" novalidate>
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <input type="hidden" name="id" th:value="${person.id}">
 
                 <div class="mb-3">
                     <label for="name" class="form-label">Name:</label>
-                    <input type="text" id="name" name="name" class="form-control" th:value="${person.name}" required>
+                    <input type="text" id="name" name="name" th:value="${person.name}" class="form-control" required>
                     <div class="form-text text-danger" id="nameError"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="birthdayDate" class="form-label">Birthday:</label>
-                    <input type="date" id="birthdayDate" name="birthdayDate" class="form-control" th:value="${person.birthdayDate}" required>
+                    <input type="date" id="birthdayDate" name="birthdayDate" th:value="${person.birthdayDate}" class="form-control" required>
                     <div class="form-text text-danger" id="dateError"></div>
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="reminderLevel" class="form-label">Reminder Level:</label>
                     <select id="reminderLevel" name="reminderLevel" class="form-select" required>
                         <option value="">-- Select Level --</option>
@@ -44,17 +44,35 @@
                     <div class="form-text text-danger" id="reminderError"></div>
                 </div>
 
+                <div class="mb-4">
+                    <label class="form-label">Owner:</label>
+                    <div class="border rounded p-2 bg-white" id="dropdown">
+                        <div class="selected-option" id="selectedUser" th:text="${person.owner.username}"></div>
+                        <ul class="list-unstyled options-list mt-2" id="optionsList">
+                            <li th:each="user : ${users}"
+                                th:data-id="${user.id}"
+                                th:data-role="${user.role}"
+                                th:text="${user.username}"
+                                th:classappend="${user.role == 'ADMIN' ? ' text-danger' : ' text-primary'}">
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="hidden" name="ownerId" id="ownerId" th:value="${person.owner.id}">
+                </div>
+
                 <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-warning">Save</button>
-                    <a href="/person/list" class="btn btn-outline-secondary">Back to List</a>
+                    <button type="submit" class="btn btn-warning">Save Changes</button>
+                    <a href="/admin/list-persons" class="btn btn-outline-secondary">Back to List</a>
                 </div>
             </form>
         </div>
     </div>
+
 </main>
 
 <footer th:replace="fragments/footer :: footer" class="mt-auto py-3"></footer>
 
 <script th:src="@{/js/validation.js}"></script>
+<script th:src="@{/js/dropdown.js}"></script>
 </body>
 </html>
