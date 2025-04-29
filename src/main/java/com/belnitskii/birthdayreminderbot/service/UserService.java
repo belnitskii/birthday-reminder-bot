@@ -2,6 +2,7 @@ package com.belnitskii.birthdayreminderbot.service;
 
 import com.belnitskii.birthdayreminderbot.model.Role;
 import com.belnitskii.birthdayreminderbot.model.User;
+import com.belnitskii.birthdayreminderbot.repository.PersonRepository;
 import com.belnitskii.birthdayreminderbot.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,10 +19,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final PersonRepository personRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PersonRepository personRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.personRepository = personRepository;
     }
 
     public void registerUser(User user){
@@ -96,6 +99,7 @@ public class UserService {
     @Transactional
     public void deleteUserByAdmin(Long id) {
         if (getCurrentUser().isAdmin()) {
+            personRepository.removeAllByOwner_Id(id);
             userRepository.deleteById(id);
         }
     }
