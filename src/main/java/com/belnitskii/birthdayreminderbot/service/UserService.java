@@ -1,8 +1,11 @@
 package com.belnitskii.birthdayreminderbot.service;
 
+import com.belnitskii.birthdayreminderbot.model.EmailAuthToken;
 import com.belnitskii.birthdayreminderbot.model.Role;
 import com.belnitskii.birthdayreminderbot.model.User;
+import com.belnitskii.birthdayreminderbot.repository.EmailAuthTokenRepository;
 import com.belnitskii.birthdayreminderbot.repository.PersonRepository;
+import com.belnitskii.birthdayreminderbot.repository.TelegramAuthTokenRepository;
 import com.belnitskii.birthdayreminderbot.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,11 +23,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final PersonRepository personRepository;
+    private final TelegramAuthTokenRepository telegramAuthTokenRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PersonRepository personRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PersonRepository personRepository, TelegramAuthTokenRepository telegramAuthTokenRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.personRepository = personRepository;
+        this.telegramAuthTokenRepository = telegramAuthTokenRepository;
     }
 
     public void registerUser(User user){
@@ -99,7 +104,10 @@ public class UserService {
     @Transactional
     public void deleteUserByAdmin(Long id) {
         if (getCurrentUser().isAdmin()) {
+            User userToDelete = userRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
             personRepository.removeAllByOwner_Id(id);
+            telegramAuthTokenRepository.removeByUser(userToDelete);
             userRepository.deleteById(id);
         }
     }
