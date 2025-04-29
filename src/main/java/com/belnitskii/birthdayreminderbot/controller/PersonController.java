@@ -22,6 +22,7 @@ public class PersonController {
     @GetMapping("/form")
     public String showForm(Model model) {
         model.addAttribute("person", new Person());
+        model.addAttribute("allReminderLevels", ReminderLevel.values());
         return "person-form";
     }
 

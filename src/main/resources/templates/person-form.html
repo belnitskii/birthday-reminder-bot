@@ -30,6 +30,19 @@
                     <div class="form-text text-danger" id="dateError"></div>
                 </div>
 
+                <div class="mb-4">
+                    <label for="reminderLevel" class="form-label">Reminder Level:</label>
+                    <select id="reminderLevel" name="reminderLevel" class="form-select" required>
+                        <option value="">-- Select Level --</option>
+                        <option th:each="level : ${allReminderLevels}"
+                                th:value="${level.name()}"
+                                th:text="${level.description}"
+                                th:selected="${person.reminderLevel == level}">
+                        </option>
+                    </select>
+                    <div class="form-text text-danger" id="reminderError"></div>
+                </div>
+
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-success">Save</button>
                     <a href="/person/list" class="btn btn-outline-secondary">Back to List</a>

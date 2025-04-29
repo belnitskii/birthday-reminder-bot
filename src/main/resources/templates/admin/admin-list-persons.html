@@ -9,8 +9,8 @@
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
 
-<!-- Header -->
-<header th:replace="fragments/header :: header"></header>
+<header th:replace="fragments/header-admin :: header" class="mt-auto py-3"></header>
+
 
 <main class="container py-5 flex-grow-1">
 
@@ -27,7 +27,7 @@
                 <table class="table table-hover align-middle mb-0">
                     <thead class="table-light">
                     <tr>
-                        <th scope="col" class="text-uppercase small">User</th>
+                        <th scope="col" class="text-uppercase small">Email</th>
                         <th scope="col" class="text-uppercase small">Name</th>
                         <th scope="col" class="text-uppercase small">Age</th>
                         <th scope="col" class="text-uppercase small">Birthday</th>
@@ -37,7 +37,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="person : ${people}">
-                        <td th:text="${person.owner.username}" class="fw-semibold"></td>
+                        <td th:text="${person.owner.email}" class="fw-semibold"></td>
                         <td th:text="${person.name}" class="text-muted"></td>
                         <td th:text="${person.getAge()}"></td>
                         <td th:text="${person.birthdayDate}"></td>

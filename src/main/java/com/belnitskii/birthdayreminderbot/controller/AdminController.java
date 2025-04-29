@@ -121,4 +121,10 @@ public class AdminController {
         model.addAttribute("roles", Role.values());
         return "admin/admin-form-user";
     }
+
+    @GetMapping("/account")
+    public String showAdminAccount(Model model) {
+        model.addAttribute("user", userService.getCurrentUser());
+        return "admin/admin-account";
+    }
 }
