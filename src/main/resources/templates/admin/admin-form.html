@@ -43,21 +43,19 @@
                     <div class="form-text text-danger" id="reminderError"></div>
                 </div>
 
-                <div class="mb-4">
-                    <label class="form-label">Owner:</label>
-                    <div class="border rounded p-2 bg-white" id="dropdown">
-                        <div class="selected-option" id="selectedUser"></div>
-                        <ul class="list-unstyled options-list mt-2" id="optionsList">
-                            <li th:each="user : ${users}"
-                                th:data-id="${user.id}"
-                                th:data-role="${user.role}"
-                                th:text="${user.username}"
-                                th:classappend="${user.role == 'ADMIN' ? ' text-danger' : ' text-primary'}">
-                            </li>
-                        </ul>
-                    </div>
-                    <input type="hidden" name="ownerId" id="ownerId" th:value="${person?.owner?.id}">
+                <div class="mb-3">
+                    <label for="ownerId" class="form-label">Owner:</label>
+                    <select id="ownerId" name="ownerId" class="form-select" required>
+                        <option value="">-- Select Owner --</option>
+                        <option th:each="user : ${users}"
+                                th:value="${user.id}"
+                                th:selected="${person?.owner?.id} == ${user.id}"
+                                th:text="${user.username}">
+                        </option>
+                    </select>
+                    <div class="form-text text-danger" id="ownerError"></div>
                 </div>
+
 
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-success">Save</button>
@@ -73,6 +71,5 @@
 <footer th:replace="fragments/footer :: footer" class="mt-auto py-3"></footer>
 
 <script th:src="@{/js/validation.js}"></script>
-<script th:src="@{/js/dropdown.js}"></script>
 </body>
 </html>

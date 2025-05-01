@@ -15,10 +15,28 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     List<Person> findByOwner(User owner);
 
+    List<Person> findByOwner_TelegramIdOrderByBirthdayDateAsc(Long ownerTelegramId);
+
     List<Person> findByOwner_TelegramId(Long ownerTelegramId);
 
     @Transactional
     @Modifying
     @Query("DELETE FROM Person t WHERE t.owner.id = :owner_id")
     void removeAllByOwner_Id(@Param("owner_id") Long ownerId);
+
+    @Query(value = """
+    SELECT p.* FROM person p
+    WHERE p.user_id = (
+        SELECT u.id FROM users u WHERE u.telegram_id = :telegramId
+    )
+    ORDER BY 
+        CASE 
+            WHEN DATE_FORMAT(p.birthday_date, '%m%d') >= DATE_FORMAT(CURDATE(), '%m%d') 
+            THEN 0 ELSE 1 
+        END,
+        DATE_FORMAT(p.birthday_date, '%m%d')
+    """, nativeQuery = true)
+    List<Person> findUpcomingBirthdays(@Param("telegramId") Long telegramId);
+
+
 }

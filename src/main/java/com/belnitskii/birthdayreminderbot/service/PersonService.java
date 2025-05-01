@@ -139,9 +139,14 @@ public class PersonService {
     }
 
     public List<Person> getPersonsByTelegramId(Long telegramId) {
-        User user = getCurrentUserByTelegramId(telegramId);
-        return personRepository.findByOwner(user);
+        return personRepository.findByOwner_TelegramId(telegramId);
     }
+
+    public List<Person> getPersonsByTelegramIdSorted(Long telegramId) {
+        return personRepository.findUpcomingBirthdays(telegramId);
+    }
+
+
 
     private User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -152,7 +157,4 @@ public class PersonService {
         throw new RuntimeException("No authenticated user found");
     }
 
-    private User getCurrentUserByTelegramId(Long telegramId) {
-        return userRepository.findByTelegramId(telegramId).orElseThrow(() -> new RuntimeException("User not found"));
-    }
 }

@@ -1,6 +1,6 @@
 package com.belnitskii.birthdayreminderbot.config;
 
-import com.belnitskii.birthdayreminderbot.TelegramBot;
+import com.belnitskii.birthdayreminderbot.telegram.TelegramBot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
