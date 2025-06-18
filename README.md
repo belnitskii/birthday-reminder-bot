@@ -1,46 +1,48 @@
 # 🎂 Birthday Reminder Bot
 
-## 📌 Описание
+## 📌 Description
 
-Birthday Reminder Bot — это система автоматических напоминаний о событиях (например, днях рождения) с интеграцией в Telegram и удобным веб-интерфейсом.  
-Приложение доступно по адресу: [https://belnitskii.ru/login](https://belnitskii.ru/login). Вы можете воспользоваться тестовым аккаунтом: `user@mail.ru`/`user` или зарегистрироваться через свою почту.
+**Birthday Reminder Bot** is an automated event reminder system (e.g., birthdays) with Telegram integration and a user-friendly web interface.  
+The application is available at: [https://belnitskii.ru/login](https://belnitskii.ru/login).  
+You can use a test account: `user@mail.ru` / `user` or register using your own email.
 
-### 🖥️ Веб-приложение
+### 🖥️ Web Application
 
-- Регистрация через email с подтверждением почты
-- Привязка Telegram-аккаунта через генерацию токена
-- Добавление, редактирование и удаление событий (дней рождения)
-- Выбор уровня напоминания (низкий / высокий)
-- Личный кабинет с отображением:
-  - роли пользователя
-  - статуса привязки Telegram
-  - кнопками для привязки / отвязки Telegram
+- Email registration with verification
+- Telegram account linking via token generation
+- Add, edit, and delete events (birthdays)
+- Choose reminder level (low / high)
+- Personal dashboard showing:
+  - user role
+  - Telegram linking status
+  - buttons to link / unlink Telegram
 
-Также доступна админ-панель для управления всеми пользователями и событиями.
+An admin panel is also available to manage all users and events.
 
-### 💬 Telegram-бот
+### 💬 Telegram Bot
 
-- Получение ежедневных уведомлений, если есть события с активным напоминанием
-- Команда для просмотра **всех событий**, отсортированных по дате (от ближайшего)
-- Команда для просмотра **ближайших трёх событий**
+- Receive daily notifications if there are events with active reminders
+- Command to view **all events**, sorted by date (soonest first)
+- Command to view the **next three upcoming events**
 
-## 🛠️ Технологии
+## 👤 Roles
+
+- **User:** register, add/edit birthdays, receive Telegram notifications  
+- **Administrator:** manage all users and events via the web interface
+
+## 🛠️ Technologies
 
 - **Backend:** Java 17, Spring Boot, Spring Security  
 - **Frontend:** Thymeleaf, Bootstrap 5  
-- **Database:** MySQL + Flyway для миграций  
+- **Database:** MySQL + Flyway for migrations  
 - **Telegram API:** TelegramBots Java Library  
-- **Сборка:** Maven  
+- **Build:** Maven  
 - **CI/CD:** GitHub Actions + Docker + docker-compose
-
-## 👤 Роли
-
-- **Пользователь:** регистрация, добавление/редактирование дней рождения, Telegram-уведомления  
-- **Администратор:** управление всеми пользователями и событиями через web-интерфейс
 
 ## 🚀 How to Run
 
-1. Создайте файл `.env` в корне проекта и укажите следующие переменные:
+1. Create a `.env` file in the project root with the following variables:
+
    ```env
    MYSQL_DATABASE=
    MYSQL_USER=
@@ -50,13 +52,13 @@ Birthday Reminder Bot — это система автоматических н�
    BIRTHDAY_BOT_TOKEN=
    ```
 
-2. Соберите и запустите проект:
+2. Build and run the project:
 
     ```bash
     docker-compose build --no-cache
     docker-compose up -d
     ```
 
-3. Приложение будет доступно по адресу: [http://localhost:8080](http://localhost:8080)
+3. The application will be available at: [http://localhost:8080](http://localhost:8080)
    - `user@mail.ru` / `user`
    - `admin@mail.ru` / `admin`
