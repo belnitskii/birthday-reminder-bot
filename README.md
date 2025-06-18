@@ -1,12 +1,10 @@
-# 🎂 Birthday Reminder Bot
+# Birthday Reminder Bot
 
-## 📌 Description
-
-**Birthday Reminder Bot** is an automated event reminder system (e.g., birthdays) with Telegram integration and a user-friendly web interface.  
+Birthday Reminder Bot is an automated event reminder system (e.g., birthdays) with Telegram integration and a user-friendly web interface.  
 The application is available at: [https://belnitskii.ru/login](https://belnitskii.ru/login).  
 You can use a test account: `user@mail.ru` / `user` or register using your own email.
 
-### 🖥️ Web Application
+### Web Application
 
 - Email registration with verification
 - Telegram account linking via token generation
@@ -19,18 +17,18 @@ You can use a test account: `user@mail.ru` / `user` or register using your own e
 
 An admin panel is also available to manage all users and events.
 
-### 💬 Telegram Bot
+### Telegram Bot
 
 - Receive daily notifications if there are events with active reminders
 - Command to view **all events**, sorted by date (soonest first)
 - Command to view the **next three upcoming events**
 
-## 👤 Roles
+### Roles
 
 - **User:** register, add/edit birthdays, receive Telegram notifications  
 - **Administrator:** manage all users and events via the web interface
 
-## 🛠️ Technologies
+## Technologies
 
 - **Backend:** Java 17, Spring Boot, Spring Security  
 - **Frontend:** Thymeleaf, Bootstrap 5  
@@ -39,7 +37,7 @@ An admin panel is also available to manage all users and events.
 - **Build:** Maven  
 - **CI/CD:** GitHub Actions + Docker + docker-compose
 
-## 🚀 How to Run
+## How to Run
 
 1. Create a `.env` file in the project root with the following variables:
 
