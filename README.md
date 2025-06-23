@@ -1,7 +1,7 @@
 # Birthday Reminder Bot
 
 Birthday Reminder Bot is an automated event reminder system (e.g., birthdays) with Telegram integration and a user-friendly web interface.  
-The application is available at: [https://belnitskii.ru/login](https://belnitskii.ru/login).  
+The application is available at: [https://belnitskii.ru/apps/reminder/login](https://belnitskii.ru/login).  
 You can use a test account: `user@mail.ru` / `user` or register using your own email.
 
 ### Web Application
