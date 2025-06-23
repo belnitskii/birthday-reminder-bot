@@ -16,13 +16,12 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        String redirectUrl = "/person/list";
+        String redirectUrl = request.getContextPath() + "/person/list";
 
         if (authorities.stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"))){
-            redirectUrl = "admin/list-users";
-        } else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
-            redirectUrl = "/person/list";
+            redirectUrl = request.getContextPath() + "/admin/list-users";
         }
+
         response.sendRedirect(redirectUrl);
     }
 }

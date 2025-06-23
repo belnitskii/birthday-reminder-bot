@@ -25,6 +25,6 @@ public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
             errorMessage = "Please confirm your email first! Check your inbox.";
         }
 
-        response.sendRedirect("/login?error=" + URLEncoder.encode(errorMessage, "UTF-8"));
+        response.sendRedirect(request.getContextPath() + "/login?error=" + URLEncoder.encode(errorMessage, "UTF-8"));
     }
 }
