@@ -8,6 +8,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,10 @@ public class EmailAuthTokenService {
     private EmailAuthTokenRepository tokenRepository;
     private UserRepository userRepository;
 
+    @Value("${app.base-url}")
+    private String baseUrl;
+
+
     public EmailAuthTokenService(JavaMailSender mailSender, EmailAuthTokenRepository tokenRepository, UserRepository userRepository) {
         this.mailSender = mailSender;
         this.tokenRepository = tokenRepository;
@@ -34,7 +39,7 @@ public class EmailAuthTokenService {
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
         String token = generateTokenForUser(user);
-        String link = "https://belnitskii.ru/verify-email?token=" + token;
+        String link = baseUrl + "/verify-email?token=" + token;
 
         String htmlMsg = "<h3>Hello!</h3>"
                 + "<p>To complete registration, click the link below:</p>"

@@ -26,6 +26,9 @@ jobs:
 
           BIRTHDAY_BOT_NAME: ${{ secrets.BIRTHDAY_BOT_NAME }}
           BIRTHDAY_BOT_TOKEN: ${{ secrets.BIRTHDAY_BOT_TOKEN }}
+
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > ~/.ssh/id_rsa
@@ -36,8 +39,12 @@ jobs:
           echo "MYSQL_USER=$MYSQL_USER" >> .env
           echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> .env
           echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env
+          
           echo "BIRTHDAY_BOT_NAME=$BIRTHDAY_BOT_NAME" >> .env
           echo "BIRTHDAY_BOT_TOKEN=$BIRTHDAY_BOT_TOKEN" >> .env
+          
+          echo "MAIL_USERNAME=$MAIL_USERNAME" >> .env
+          echo "MAIL_PASSWORD=$MAIL_PASSWORD" >> .env
           
           echo "SERVER_USER=${SERVER_USER}" | wc -c
           echo "SERVER_HOST=${SERVER_HOST}" | wc -c
