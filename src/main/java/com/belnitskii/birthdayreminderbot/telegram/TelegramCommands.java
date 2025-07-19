@@ -51,7 +51,7 @@ public enum TelegramCommands {
 
     private static String generateHelpMessage() {
         StringBuilder sb = new StringBuilder();
-        sb.append("<b>This bot shows exchange rates.</b>\n")
+        sb.append("<b>Birthday Reminder Bot is an automated event reminder system (e.g., birthdays) with Telegram integration and a user-friendly web interface.</b>\n")
                 .append("Available commands:\n")
                 .append("<b>").append(START.command).append("</b> — ").append(START.description).append("\n")
                 .append("<b>").append(ABOUT.command).append("</b> — ").append(ABOUT.description).append("\n")

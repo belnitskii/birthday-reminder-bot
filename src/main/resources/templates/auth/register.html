@@ -71,9 +71,9 @@
             <button type="submit" class="btn btn-primary">Register</button>
         </div>
     </form>
-    <a class="login-link text-primary" href="/login">Already have an account? Login</a>
+    <a class="login-link text-primary" th:href="@{/login}">Already have an account? Login</a>
 </div>
 
-<footer th:replace="fragments/footer :: footer" class="mt-auto py-3"></footer>
+<footer th:replace="~{fragments/footer :: footer}" class="mt-auto py-3"></footer>
 </body>
 </html>

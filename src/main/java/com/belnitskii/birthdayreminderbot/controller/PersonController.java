@@ -23,7 +23,7 @@ public class PersonController {
     public String showForm(Model model) {
         model.addAttribute("person", new Person());
         model.addAttribute("allReminderLevels", ReminderLevel.values());
-        return "person-form";
+        return "user/person-form";
     }
 
     @GetMapping("/edit/{id}")
@@ -31,7 +31,7 @@ public class PersonController {
         Person person = personService.getPerson(id);
         model.addAttribute("person", person);
         model.addAttribute("allReminderLevels", ReminderLevel.values());
-        return "person-edit";
+        return "user/person-edit";
     }
 
     @PostMapping("/update")
@@ -56,6 +56,6 @@ public class PersonController {
     @GetMapping("/list")
     public String showPersonList(Model model) {
         model.addAttribute("people", personService.getPersonsByCurrentUser());
-        return "person-list";
+        return "user/person-list";
     }
 }

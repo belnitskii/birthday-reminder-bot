@@ -37,12 +37,12 @@
             </table>
 
             <div class="d-flex flex-column flex-md-row justify-content-center gap-3 mt-4">
-                <form th:action="@{/auth/telegram/token}" method="post">
+                <form th:action="@{/auth/telegram/admin-token}" method="post">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <button type="submit" class="btn btn-success px-4">Link Telegram</button>
                 </form>
 
-                <form th:action="@{/auth/telegram/remove}" method="post">
+                <form th:action="@{/auth/telegram/remove-admin-token}" method="post">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <button type="submit" class="btn btn-outline-danger px-4">Remove Telegram Link</button>
                 </form>

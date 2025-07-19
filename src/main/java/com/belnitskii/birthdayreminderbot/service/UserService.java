@@ -24,12 +24,14 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final PersonRepository personRepository;
     private final TelegramAuthTokenRepository telegramAuthTokenRepository;
+    private final EmailAuthTokenRepository emailAuthTokenRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PersonRepository personRepository, TelegramAuthTokenRepository telegramAuthTokenRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PersonRepository personRepository, TelegramAuthTokenRepository telegramAuthTokenRepository, EmailAuthTokenRepository emailAuthTokenRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.personRepository = personRepository;
         this.telegramAuthTokenRepository = telegramAuthTokenRepository;
+        this.emailAuthTokenRepository = emailAuthTokenRepository;
     }
 
     public void registerUser(User user){
@@ -108,6 +110,7 @@ public class UserService {
                     .orElseThrow(() -> new RuntimeException("User not found"));
             personRepository.removeAllByOwner_Id(id);
             telegramAuthTokenRepository.removeByUser(userToDelete);
+            emailAuthTokenRepository.removeByUser(userToDelete);
             userRepository.deleteById(id);
         }
     }

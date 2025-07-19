@@ -32,7 +32,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "login";
+        return "auth/login";
     }
 
     @PostMapping("/logout")
@@ -42,7 +42,7 @@ public class AuthController {
 
     @GetMapping("/register")
     public String showRegistrationForm() {
-        return "register";
+        return "auth/register";
     }
 
     @SneakyThrows
@@ -53,10 +53,10 @@ public class AuthController {
         return "redirect:/login";
     }
 
-    @GetMapping("/account")
+    @GetMapping("/person/user/account")
     public String showAccount(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
-        return "account";
+        return "user/account";
     }
 
     @GetMapping("/token")
@@ -68,13 +68,30 @@ public class AuthController {
     public String generateTelegramToken(Principal principal, Model model){
         String email = principal.getName();
         model.addAttribute("token", authTokenService.generateTokenForUser(email));
-        return "token";
+        return "auth/token";
+    }
+
+    @PostMapping("/auth/telegram/admin-token")
+    public String generateTelegramAdminToken(Principal principal, Model model){
+        String email = principal.getName();
+        model.addAttribute("token", authTokenService.generateTokenForUser(email));
+        return "auth/admin-token";
     }
 
     @PostMapping("/auth/telegram/remove")
-    public String removeTelegramToken(Principal principal){
-        authTokenService.removeTokenForUser(principal.getName());
-        return "redirect:/account";
+    public String removeTelegramToken(Principal principal, Model model){
+        String email = principal.getName();
+        authTokenService.removeTokenForUser(email);
+        model.addAttribute("user", userService.getCurrentUser());
+        return "/user/account";
+    }
+
+    @PostMapping("/auth/telegram/remove-admin-token")
+    public String removeTelegramAdminToken(Principal principal, Model model){
+        String email = principal.getName();
+        authTokenService.removeTokenForUser(email);
+        model.addAttribute("user", userService.getCurrentUser());
+        return "/admin/admin-account";
     }
 
     @GetMapping("/verify-email")
