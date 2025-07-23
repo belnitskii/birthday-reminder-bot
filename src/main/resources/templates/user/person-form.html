@@ -45,7 +45,7 @@
 
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-success">Save</button>
-                    <a href="/person/list" class="btn btn-outline-secondary">Back to List</a>
+                    <a th:href="@{/person/list}" class="btn btn-outline-secondary">Back to List</a>
                 </div>
             </form>
         </div>
@@ -54,6 +54,9 @@
 
 <footer th:replace="~{fragments/footer :: footer}" class="mt-auto py-3"></footer>
 
+<script>
+    const contextPath = '[[@{/}]]';
+</script>
 <script th:src="@{/js/validation.js}"></script>
 </body>
 </html>

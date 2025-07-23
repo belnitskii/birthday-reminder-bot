@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 };
 
                 const csrfToken = document.querySelector('input[name="_csrf"]').value;
-                const response = await fetch('/reminder/api/person/validate', {
+                const response = await fetch(`${contextPath}api/person/validate`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
