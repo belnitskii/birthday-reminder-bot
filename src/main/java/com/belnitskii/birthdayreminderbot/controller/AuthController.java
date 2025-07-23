@@ -45,12 +45,18 @@ public class AuthController {
         return "auth/register";
     }
 
-    @SneakyThrows
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user) {
-        userService.registerUser(user);
-        emailAuthTokenService.sendTokenToEmail(user.getEmail(), user);
-        return "redirect:/login";
+    public String registerUser(@ModelAttribute User user, Model model) {
+        try {
+            userService.registerUser(user);
+            return "redirect:/login?registered";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "auth/register";
+        } catch (Exception e) {
+            model.addAttribute("error", "An unexpected error occurred during registration.");
+            return "auth/register";
+        }
     }
 
     @GetMapping("/person/user/account")

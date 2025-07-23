@@ -7,6 +7,7 @@ import com.belnitskii.birthdayreminderbot.repository.EmailAuthTokenRepository;
 import com.belnitskii.birthdayreminderbot.repository.PersonRepository;
 import com.belnitskii.birthdayreminderbot.repository.TelegramAuthTokenRepository;
 import com.belnitskii.birthdayreminderbot.repository.UserRepository;
+import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -25,26 +27,43 @@ public class UserService {
     private final PersonRepository personRepository;
     private final TelegramAuthTokenRepository telegramAuthTokenRepository;
     private final EmailAuthTokenRepository emailAuthTokenRepository;
+    private final EmailAuthTokenService emailAuthTokenService;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PersonRepository personRepository, TelegramAuthTokenRepository telegramAuthTokenRepository, EmailAuthTokenRepository emailAuthTokenRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PersonRepository personRepository, TelegramAuthTokenRepository telegramAuthTokenRepository, EmailAuthTokenRepository emailAuthTokenRepository, EmailAuthTokenService emailAuthTokenService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.personRepository = personRepository;
         this.telegramAuthTokenRepository = telegramAuthTokenRepository;
         this.emailAuthTokenRepository = emailAuthTokenRepository;
+        this.emailAuthTokenService = emailAuthTokenService;
     }
 
-    public void registerUser(User user){
-        userRepository.findByEmail(user.getEmail()).ifPresent(existingUser -> {
-            existingUser.setUsername(user.getUsername());
-            existingUser.setEmail(user.getEmail());
-            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(existingUser);
-        });
-        if (userRepository.findByEmail(user.getEmail()).isEmpty()) {
+    @Transactional
+    public User registerUser(User user) {
+        Optional<User> existingUserOpt = userRepository.findByEmail(user.getEmail());
+        User userToSave;
+
+        if (existingUserOpt.isPresent()){
+            User existingUser = existingUserOpt.get();
+            if (existingUser.isEnabled()){
+                throw new IllegalArgumentException("User with this email already exists and is active.");
+            } else {
+                existingUser.setUsername(user.getUsername());
+                existingUser.setEmail(user.getEmail());
+                existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+                userToSave = existingUser;
+            }
+        } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
+            userToSave = user;
         }
+        User savedUser = userRepository.save(userToSave);
+        try {
+            emailAuthTokenService.sendTokenToEmail(savedUser.getEmail(), savedUser);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+        return savedUser;
     }
 
     public List<User> findAllByAdmin() {
